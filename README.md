@@ -37,6 +37,7 @@ O HTTPS verifica o servidor usando a coleção completa de CAs incorporada ao co
 - `firmware_v1.bin`: imagem de aplicação inicial.
 - `firmware_v2.bin`: imagem de aplicação usada no download OTA.
 - `version.json`: manifesto com `version` e `url`.
+- `partitions.csv`: tabela com otadata e dois slots OTA, necessária no projeto Wokwi online; a tabela padrão online observada tinha factory e não permitiu iniciar OTA.
 - `build.ps1`: compila ambas com o core instalado, copia os binários e mostra tamanho e SHA-256.
 - `build1/fw1.ino.merged.bin`: imagem inicial completa com bootloader e tabela de partições, produzida pelo build local. Não é o arquivo de OTA.
 - `wokwi.toml`: configuração para a extensão Wokwi local após a compilação.
@@ -44,7 +45,7 @@ O HTTPS verifica o servidor usando a coleção completa de CAs incorporada ao co
 
 Ambiente local: Arduino ESP32 3.3.11, FQBN `esp32:esp32:esp32`, tabela `default`. Os dois slots OTA têm 0x140000 bytes (1.310.720 bytes) cada, além de `otadata`. O boot imprime a versão do core, partição, tamanho e MD5 da imagem em execução. O SHA-256 dos arquivos distribuídos está em `ARTIFACTS.json`.
 
-Em PowerShell, execute `./build.ps1`. O script pressupõe o Arduino CLI instalado no caminho indicado em seu início. Em outro computador, ajuste apenas esse caminho e instale o mesmo core antes de compilar. Para compilar manualmente: `arduino-cli compile --fqbn esp32:esp32:esp32 --build-property "build.partitions=default" --output-dir build1 fw1`; repita com build2 e fw2.
+Em PowerShell, execute `./build.ps1`. O script requer Python e pressupõe o Arduino CLI instalado no caminho indicado em seu início. Em outro computador, ajuste apenas esse caminho e instale o mesmo core antes de compilar. Para compilar manualmente: `arduino-cli compile --fqbn esp32:esp32:esp32 --build-property "build.partitions=default" --output-dir build1 fw1`; repita com build2 e fw2.
 
 ## Execução e observação
 
@@ -70,17 +71,19 @@ Após três ciclos completos e quando a tarefa anterior terminar, envie um coman
 
 ## Testes obrigatórios e evidência disponível
 
-O teste local C++ usa MSVC e extrai as funções do firmware antes de cada execução. Executa todos os 161.051 vetores possíveis, comparando a ordenação por inserção a `std::sort`. Saída observada: `Actual extracted firmware functions: 161051 vectors, 966335 checks, 0 failures`. Também verifica versões inválidas, comparação numérica e limites. Rode `./run-host-tests.cmd` a partir da pasta `tests`. Este teste não executa Wi-Fi, cJSON, Update, LEDs nem o simulador.
+O teste local C++ requer Python e Visual Studio 2022 com MSVC. Ele usa MSVC e extrai as funções do firmware antes de cada execução. Executa todos os 161.051 vetores possíveis, comparando a ordenação por inserção a `std::sort`. Saída observada: `Actual extracted firmware functions: 161051 vectors, 966335 checks, 0 failures`. Também verifica versões inválidas, comparação numérica e limites. Rode `./run-host-tests.cmd` a partir da pasta `tests`. Este teste não executa Wi-Fi, cJSON, Update, LEDs nem o simulador.
 
 | # | Teste exigido | Evidência local | Situação Wokwi |
 |---|---|---|---|
-| 1 | FW1: cinco leituras, média, LED azul | Código compilável e média verificada localmente | Não verificado nesta etapa |
-| 2 | Sessões a cada 48 s, não 56 s | Agendamento por referência anterior; log real/previsto implementado | Não verificado nesta etapa |
-| 3 | Encontrar FW2 após três ciclos | Fluxo HTTPS e comparação implementados | Não verificado nesta etapa |
-| 4 | OTA, reboot e execução de FW2 | APIs reais de gravação e prova de partição implementadas | Não verificado nesta etapa |
+| 1 | FW1: cinco leituras, média, LED azul | Código compilado e média verificada localmente | Serial observado: 5 valores e média correta; aceitação visual separada |
+| 2 | Sessões a cada 48 s, não 56 s | Agendamento por referência anterior | Observado: inícios em 0, 48000, 96000 e 144000 ms |
+| 3 | Encontrar FW2 após três ciclos | Fluxo HTTPS e comparação implementados | Observado: ciclo 3 em 104001 ms; manifesto 200 e versão 2.0 |
+| 4 | OTA, reboot e execução de FW2 | APIs reais de gravação e prova de partição implementadas | Primeiro teste baixou 1115792 bytes; bloqueado antes da gravação pela tabela online inicial. Reteste necessário com partitions.csv |
 | 5 | FW2: média, ordenação, mediana | Todos os vetores inteiros possíveis passaram no teste local | Não verificado nesta etapa |
 | 6 | Mediana >= 16: ALERTA, vermelho | Função e fronteira 16 passaram; diagnóstico usa LED real | Não verificado nesta etapa |
 | 7 | 14 < mediana < 16: manter estado | 15 nos dois estados passou no teste local | Não verificado nesta etapa |
 | 8 | Mediana <= 14: NORMAL, verde | Retorno ALERTA -> NORMAL em 14 passou localmente | Não verificado nesta etapa |
+
+A primeira execução online usou core 3.3.7, diferente do core local 3.3.11, e partição factory. Ela confirmou rede, TLS, manifesto e download, mas não iniciou a gravação. O reteste deve usar a tabela OTA em partitions.csv.
 
 A validação final depende do log da execução Wokwi. Os tempos de rede, o boot da partição gravada e a disponibilidade pública ainda precisam ser observados no ambiente final. Mantenha o projeto, o manifesto e o binário publicados por pelo menos dez dias após a entrega. A entrega acadêmica é o PDF indicado no enunciado.

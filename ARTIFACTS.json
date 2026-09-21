@@ -1,0 +1,54 @@
+{
+  "core": "esp32:esp32@3.3.11",
+  "fqbn": "esp32:esp32:esp32",
+  "partition_scheme": "default",
+  "ota_slot_bytes": 1310720,
+  "artifacts": [
+    {
+      "file": "firmware_v1.ino",
+      "bytes": 14278,
+      "sha256": "66aaed8228da48ea20731fb448198e5ef9fce058eed7ff5862add5bc7496a811"
+    },
+    {
+      "file": "firmware_v2.ino",
+      "bytes": 17336,
+      "sha256": "de8da9cf52a57ccfad579917504e716af9c34a535485644e2a823682ee27f578"
+    },
+    {
+      "file": "firmware_v1.bin",
+      "bytes": 1114544,
+      "sha256": "2b4b8c1890adc39f90b44205915561682abfe3337c9ef7e61212f404aecf39f3"
+    },
+    {
+      "file": "firmware_v2.bin",
+      "bytes": 1115792,
+      "sha256": "eef3c48b0a3e4a09bb63457935b54c2a59ec0b9177c0b0512550647d5b688ffd"
+    },
+    {
+      "file": "version.json",
+      "bytes": 127,
+      "sha256": "99603d1415ca1ede2ae4f907212bfd212417402dd39edc184f4163a1507cee96"
+    },
+    {
+      "file": "partitions.csv",
+      "bytes": 305,
+      "sha256": "2683fd26b661bc909dcb8a9f05723d36c4000f9396995941a278fda409b753f7"
+    },
+    {
+      "file": "build1/fw1.ino.merged.bin",
+      "bytes": 4194304,
+      "sha256": "a6f11addcc7962f6bc8d9e6d0f9b67bc84cb14b90dc92d6d4d046dd76e5d5e01"
+    },
+    {
+      "file": "build1/fw1.ino.partitions.bin",
+      "bytes": 3072,
+      "sha256": "148b959cbff1c38aa8e1d5c0ba9d612c54997b945e56a63f41223eef650653a1"
+    },
+    {
+      "file": "build2/fw2.ino.partitions.bin",
+      "bytes": 3072,
+      "sha256": "148b959cbff1c38aa8e1d5c0ba9d612c54997b945e56a63f41223eef650653a1"
+    }
+  ],
+  "runtime_note": "Local build metadata. Text hashes include local line endings. Wokwi online used core 3.3.7; runtime acceptance is separate."
+}
