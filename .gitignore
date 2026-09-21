@@ -1,0 +1,6 @@
+build1/
+build2/
+fw1/build/
+fw2/build/
+tests/build/
+*.log

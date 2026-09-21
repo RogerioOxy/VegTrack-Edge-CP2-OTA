@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "author": "Rogério Deligi Ferreira Filho RM561942 e Maria Fernanda Garavelli Dantas RM562686",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "rotate": 0
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledR",
+      "attrs": {
+        "color": "red"
+      },
+      "top": 24,
+      "left": 336,
+      "rotate": 0
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledG",
+      "attrs": {
+        "color": "green"
+      },
+      "top": 120,
+      "left": 336,
+      "rotate": 0
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledB",
+      "attrs": {
+        "color": "blue"
+      },
+      "top": 216,
+      "left": 336,
+      "rotate": 0
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rR",
+      "attrs": {
+        "value": "220"
+      },
+      "top": 67,
+      "left": 235,
+      "rotate": 90
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rG",
+      "attrs": {
+        "value": "220"
+      },
+      "top": 163,
+      "left": 235,
+      "rotate": 90
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rB",
+      "attrs": {
+        "value": "220"
+      },
+      "top": 259,
+      "left": 235,
+      "rotate": 90
+    }
+  ],
+  "connections": [
+    [
+      "esp:25",
+      "rR:1",
+      "red"
+    ],
+    [
+      "rR:2",
+      "ledR:A",
+      "red"
+    ],
+    [
+      "esp:26",
+      "rG:1",
+      "green"
+    ],
+    [
+      "rG:2",
+      "ledG:A",
+      "green"
+    ],
+    [
+      "esp:27",
+      "rB:1",
+      "blue"
+    ],
+    [
+      "rB:2",
+      "ledB:A",
+      "blue"
+    ],
+    [
+      "ledR:C",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "ledG:C",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "ledB:C",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "esp:TX",
+      "$serialMonitor:RX",
+      ""
+    ],
+    [
+      "esp:RX",
+      "$serialMonitor:TX",
+      ""
+    ]
+  ],
+  "dependencies": {}
+}
