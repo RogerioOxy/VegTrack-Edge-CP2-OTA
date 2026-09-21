@@ -39,8 +39,8 @@ Esse teste confirma ordenação, média, mediana, histerese, versões e limites.
 
 ## Observações de reprodução
 
-- O runtime de sucesso foi feito no editor Wokwi não salvo. O projeto final ainda precisa ser salvo após login para obter um link público próprio.
-- O endereço `475727719892918273` é somente o template original e não deve ser usado como link de entrega.
+- Após o salvamento público, repetimos o fluxo completo no link definitivo. O [log dessa validação](evidencias/wokwi-public-final-run.txt) registra todos os 1.115.792 bytes gravados, reboot, Firmware 2.0 em `app1` com o mesmo MD5 e uma sessão completa com média 14,0 cm e mediana 12 cm.
+- O projeto completo está publicado em https://wokwi.com/projects/475733057962272769. Os três arquivos salvos foram conferidos e correspondem aos utilizados nos testes: `sketch.ino`, `diagram.json` e `partitions.csv`.
 - A primeira tentativa online usou a tabela factory do projeto inicial. Ela recebeu HTTP 200 e o tamanho declarado do binário, mas parou antes de iniciar a transferência e a gravação. O reteste com `partitions.csv` comprovou todos os bytes gravados em `app1` e o reboot.
 - O primeiro boot registrado foi compilado online com core 3.3.7; o FW 2.0 baixado foi compilado localmente com core 3.3.11. O botão de iniciar do Wokwi utiliza o compilador online. Para repetir os builds locais, use core 3.3.11.
 - A manutenção dos links por dez dias após a entrega ainda é uma obrigação futura, não uma observação já concluída.

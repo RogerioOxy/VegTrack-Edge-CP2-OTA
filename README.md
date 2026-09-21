@@ -15,9 +15,11 @@ Repositório remoto: [RogerioOxy/VegTrack-Edge-CP2-OTA](https://github.com/Roger
 
 O código, `version.json` e `firmware_v2.bin` foram verificados publicamente. O manifesto e o binário retornaram HTTP 200. O binário remoto tem 1.115.792 bytes e SHA-256 `eef3c48b0a3e4a09bb63457935b54c2a59ec0b9177c0b0512550647d5b688ffd`.
 
-Link Wokwi: **publicação pendente de login**. O endereço `https://wokwi.com/projects/475727719892918273` é o template original e não deve ser apresentado como o projeto final público. A execução que comprovou o OTA foi feita no editor não salvo, com `sketch.ino`, `diagram.json` e `partitions.csv` corretos. O projeto completo precisa ser salvo após o login antes da entrega do PDF.
+Projeto Wokwi: [VegTrack CP2: OTA 1.0 para 2.0](https://wokwi.com/projects/475733057962272769).
 
-Depois da entrega, os links e a estrutura devem permanecer públicos por pelo menos dez dias, conforme o enunciado. Esse período ainda não foi observado.
+O projeto completo foi salvo como público. Os arquivos `sketch.ino`, `diagram.json` e `partitions.csv` foram conferidos no editor após o salvamento e correspondem aos arquivos usados nos testes.
+
+Os links e a estrutura devem permanecer públicos por pelo menos dez dias após a entrega, conforme o enunciado.
 
 ## Arquitetura
 
