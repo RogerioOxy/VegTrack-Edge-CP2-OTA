@@ -1,0 +1,315 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1156
+load:0x40078000,len:11456
+ho 0 tail 12 room 4
+load:0x40080400,len:2972
+entry 0x400805dc
+
+========================================
+MONITORAMENTO DE VEGETAÇÃO - FW 1.0
+========================================
+CORE Arduino ESP32: 3.3.7
+PARTIÇÃO atual: app0 offset=0x10000 tamanho=0x140000
+IMAGEM FW=1.0 bytes=1124480 MD5=b78d9183207e43d5568026d265b0f507 compilada=Sep 21 2026 00:11:11
+Comandos após 3 ciclos: m=consultar; 1=sem Wi-Fi; 2=manifesto 404;
+4=binário 404; 5=imagem inválida. p=prova da partição.
+LED azul: Firmware 1.0.
+Nova sessão: real=0ms previsto=0ms; próxima em +48000ms
+Leitura 1: 15 cm; real=+11ms previsto=+0ms
+Leitura 2: 13 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 17 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 15 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 10 cm; real=+8000ms previsto=+8000ms
+Ordem original: 15 13 17 15 10
+Média da sessão: 14.0 cm
+Ciclo 1 completo em t=8002ms; próximo início previsto=48000ms
+Nova sessão: real=48000ms previsto=48000ms; próxima em +48000ms
+Leitura 1: 17 cm; real=+0ms previsto=+0ms
+Leitura 2: 16 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 20 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 20 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 16 cm; real=+8000ms previsto=+8000ms
+Ordem original: 17 16 20 20 16
+Média da sessão: 17.8 cm
+Ciclo 2 completo em t=56001ms; próximo início previsto=96000ms
+Nova sessão: real=96000ms previsto=96000ms; próxima em +48000ms
+Leitura 1: 11 cm; real=+0ms previsto=+0ms
+Leitura 2: 17 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 10 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 10 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 20 cm; real=+8000ms previsto=+8000ms
+Ordem original: 11 17 10 10 20
+Média da sessão: 13.6 cm
+Ciclo 3 completo em t=104001ms; próximo início previsto=144000ms
+Três ciclos completos. Iniciando tarefa de consulta OTA.
+Wi-Fi: conectando à rede Wokwi-GUEST...
+Wi-Fi conectado; IP=10.10.0.2
+TLS: relógio UTC=1789949933; coleção de CAs=68983 bytes
+Consulta: https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/version.json
+Manifesto HTTP=200 bytes=123
+Manifesto recebido: {
+  "version": "2.0",
+  "url": "https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/firmware_v2.bin"
+}
+
+Versão instalada=1.0 disponível=2.0
+OTA: atualização disponível após três ciclos completos.
+Download remoto: https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/firmware_v2.bin
+Firmware HTTP=200 bytes=1115792
+OTA: gravando partição=app1 offset=0x150000
+OTA bytes=65536/1115792
+OTA bytes=131692/1115792
+OTA bytes=197228/1115792
+OTA bytes=262764/1115792
+OTA bytes=328300/1115792
+OTA bytes=393836/1115792
+Nova sessão: real=144000ms previsto=144000ms; próxima em +48000ms
+Leitura 1: 15 cm; real=+0ms previsto=+0ms
+Leitura 2: 13 cm; real=+2000ms previsto=+2000ms
+OTA bytes=459372/1115792
+Leitura 3: 16 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 14 cm; real=+6000ms previsto=+6000ms
+OTA bytes=524908/1115792
+Leitura 5: 13 cm; real=+8003ms previsto=+8000ms
+Ordem original: 15 13 16 14 13
+Média da sessão: 14.2 cm
+Ciclo 4 completo em t=152003ms; próximo início previsto=192000ms
+OTA bytes=590444/1115792
+OTA bytes=655980/1115792
+OTA bytes=721516/1115792
+OTA bytes=787052/1115792
+OTA bytes=852588/1115792
+OTA bytes=918124/1115792
+OTA bytes=983660/1115792
+OTA bytes=1049196/1115792
+OTA bytes=1114732/1115792
+OTA bytes=1115792/1115792
+OTA: imagem validada, partição de boot selecionada. Reiniciando...
+ets Jul 29 2019 12:21:46
+
+rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1156
+load:0x40078000,len:11456
+ho 0 tail 12 room 4
+load:0x40080400,len:2972
+entry 0x400805dc
+
+========================================
+MONITORAMENTO DE VEGETAÇÃO - FW 2.0
+========================================
+CORE Arduino ESP32: 3.3.11
+PARTIÇÃO atual: app1 offset=0x150000 tamanho=0x140000
+IMAGEM FW=2.0 bytes=1115792 MD5=1547bb7841adda858261ab0b438749e2 compilada=Sep 20 2026 21:09:08
+Comandos após 3 ciclos: m=consultar; 1=sem Wi-Fi; 2=manifesto 404;
+4=binário 404; 5=imagem inválida. p=prova da partição.
+DIAGNÓSTICO: vetores fixos, NÃO são leituras de campo.
+Usa as mesmas funções de média, ordenação, mediana, histerese e LED.
+TESTE 1: mediana=15 estado=NORMAL resultado=PASS
+Original diagnóstico: 18 12 15 14 20
+Ordenado diagnóstico: 12 14 15 18 20
+Média diagnóstico: 15.8 cm
+Estado: NORMAL; LED verde
+TESTE 2: mediana=17 estado=ALERTA resultado=PASS
+Original diagnóstico: 16 12 18 17 20
+Ordenado diagnóstico: 12 16 17 18 20
+Média diagnóstico: 16.6 cm
+Estado: ALERTA; LED vermelho
+TESTE 3: mediana=15 estado=ALERTA resultado=PASS
+Original diagnóstico: 14 16 15 15 14
+Ordenado diagnóstico: 14 14 15 15 16
+Média diagnóstico: 14.8 cm
+Estado: ALERTA; LED vermelho
+TESTE 4: mediana=14 estado=NORMAL resultado=PASS
+Original diagnóstico: 14 14 14 14 14
+Ordenado diagnóstico: 14 14 14 14 14
+Média diagnóstico: 14.0 cm
+Estado: NORMAL; LED verde
+TESTE 5: mediana=15 estado=NORMAL resultado=PASS
+Original diagnóstico: 15 15 15 15 15
+Ordenado diagnóstico: 15 15 15 15 15
+Média diagnóstico: 15.0 cm
+Estado: NORMAL; LED verde
+TESTE 6: mediana=12 estado=NORMAL resultado=PASS
+Original diagnóstico: 10 14 12 11 13
+Ordenado diagnóstico: 10 11 12 13 14
+Média diagnóstico: 12.0 cm
+Estado: NORMAL; LED verde
+TESTE limite 16: PASS
+Estado: ALERTA; LED vermelho
+Estado: NORMAL; LED verde
+FIM DIAGNÓSTICO. Início das leituras de campo simuladas.
+Nova sessão: real=0ms previsto=0ms; próxima em +48000ms
+Leitura 1: 19 cm; real=+12ms previsto=+0ms
+Leitura 2: 20 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 17 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 12 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 16 cm; real=+8000ms previsto=+8000ms
+Ordem original: 19 20 17 12 16
+Média da sessão: 16.8 cm
+Ordem crescente: 12 16 17 19 20
+Mediana (3º valor): 17 cm
+Estado: ALERTA; LED vermelho
+Ciclo 1 completo em t=8014ms; próximo início previsto=48000ms
+Nova sessão: real=48000ms previsto=48000ms; próxima em +48000ms
+Leitura 1: 10 cm; real=+1ms previsto=+0ms
+Leitura 2: 12 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 18 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 11 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 16 cm; real=+8000ms previsto=+8000ms
+Ordem original: 10 12 18 11 16
+Média da sessão: 13.4 cm
+Ordem crescente: 10 11 12 16 18
+Mediana (3º valor): 12 cm
+Estado: NORMAL; LED verde
+Ciclo 2 completo em t=56014ms; próximo início previsto=96000ms
+Nova sessão: real=96000ms previsto=96000ms; próxima em +48000ms
+Leitura 1: 19 cm; real=+1ms previsto=+0ms
+Leitura 2: 14 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 19 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 14 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 13 cm; real=+8000ms previsto=+8000ms
+Ordem original: 19 14 19 14 13
+Média da sessão: 15.8 cm
+Ordem crescente: 13 14 14 19 19
+Mediana (3º valor): 14 cm
+Estado: NORMAL; LED verde
+Ciclo 3 completo em t=104014ms; próximo início previsto=144000ms
+Três ciclos completos. Iniciando tarefa de consulta OTA.
+Wi-Fi: conectando à rede Wokwi-GUEST...
+Wi-Fi conectado; IP=10.10.0.2
+TLS: relógio UTC=1789950126; coleção de CAs=68983 bytes
+Consulta: https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/version.json
+Manifesto HTTP=200 bytes=123
+Manifesto recebido: {
+  "version": "2.0",
+  "url": "https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/firmware_v2.bin"
+}
+
+Versão instalada=2.0 disponível=2.0
+INFO 3: versão instalada já é a mais recente; nenhuma gravação.
+Consulta OTA encerrada; medições continuam até parar a simulação.
+Nova sessão: real=144000ms previsto=144000ms; próxima em +48000ms
+Leitura 1: 18 cm; real=+1ms previsto=+0ms
+Leitura 2: 11 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 10 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 17 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 16 cm; real=+8000ms previsto=+8000ms
+Ordem original: 18 11 10 17 16
+Média da sessão: 14.4 cm
+Ordem crescente: 10 11 16 17 18
+Mediana (3º valor): 16 cm
+Estado: ALERTA; LED vermelho
+Ciclo 4 completo em t=152014ms; próximo início previsto=192000ms
+COMANDO 1: DIAGNÓSTICO de erro
+ERRO 1: sem conexão Wi-Fi. Diagnóstico após desconectar a rede.
+Consulta OTA encerrada; medições continuam até parar a simulação.
+COMANDO 2: DIAGNÓSTICO de erro
+Wi-Fi: conectando à rede Wokwi-GUEST...
+Wi-Fi conectado; IP=10.10.0.2
+TLS: relógio UTC=1789950202; coleção de CAs=68983 bytes
+Consulta: https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/manifesto-inexistente.json
+Manifesto HTTP=404 bytes=14
+ERRO 2: manifesto inacessível ou tamanho inválido.
+Consulta OTA encerrada; medições continuam até parar a simulação.
+Nova sessão: real=192000ms previsto=192000ms; próxima em +48000ms
+Leitura 1: 17 cm; real=+1ms previsto=+0ms
+Leitura 2: 17 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 16 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 11 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 17 cm; real=+8000ms previsto=+8000ms
+Ordem original: 17 17 16 11 17
+Média da sessão: 15.6 cm
+Ordem crescente: 11 16 17 17 17
+Mediana (3º valor): 17 cm
+Estado: ALERTA; LED vermelho
+Ciclo 5 completo em t=200014ms; próximo início previsto=240000ms
+COMANDO 4: DIAGNÓSTICO de erro
+Wi-Fi: conectando à rede Wokwi-GUEST...
+Wi-Fi conectado; IP=10.10.0.2
+TLS: relógio UTC=1789950246; coleção de CAs=68983 bytes
+Download remoto: https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/firmware-inexistente.bin
+Firmware HTTP=404 bytes=14
+ERRO 4: download indisponível ou tamanho não informado.
+Consulta OTA encerrada; medições continuam até parar a simulação.
+Nova sessão: real=240000ms previsto=240000ms; próxima em +48000ms
+Leitura 1: 14 cm; real=+1ms previsto=+0ms
+Leitura 2: 20 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 11 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 11 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 17 cm; real=+8000ms previsto=+8000ms
+Ordem original: 14 20 11 11 17
+Média da sessão: 14.6 cm
+Ordem crescente: 11 11 14 17 20
+Mediana (3º valor): 14 cm
+Estado: NORMAL; LED verde
+Ciclo 6 completo em t=248014ms; próximo início previsto=288000ms
+COMANDO 5: DIAGNÓSTICO de erro
+Wi-Fi: conectando à rede Wokwi-GUEST...
+Wi-Fi conectado; IP=10.10.0.2
+TLS: relógio UTC=1789950289; coleção de CAs=68983 bytes
+Download remoto: https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/version.json
+Firmware HTTP=200 bytes=123
+OTA: gravando partição=app0 offset=0x10000
+ERRO 5: gravação OTA falhou; código=13
+Decryption error
+Consulta OTA encerrada; medições continuam até parar a simulação.
+Nova sessão: real=288000ms previsto=288000ms; próxima em +48000ms
+Leitura 1: 13 cm; real=+1ms previsto=+0ms
+Leitura 2: 17 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 10 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 17 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 13 cm; real=+8000ms previsto=+8000ms
+Ordem original: 13 17 10 17 13
+Média da sessão: 14.0 cm
+Ordem crescente: 10 13 13 17 17
+Mediana (3º valor): 13 cm
+Estado: NORMAL; LED verde
+Ciclo 7 completo em t=296014ms; próximo início previsto=336000ms
+PARTIÇÃO atual: app1 offset=0x150000 tamanho=0x140000
+IMAGEM FW=2.0 bytes=1115792 MD5=1547bb7841adda858261ab0b438749e2 compilada=Sep 20 2026 21:09:08
+COMANDO m: consulta normal
+Wi-Fi: conectando à rede Wokwi-GUEST...
+Wi-Fi conectado; IP=10.10.0.2
+TLS: relógio UTC=1789950335; coleção de CAs=68983 bytes
+Consulta: https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/version.json
+Manifesto HTTP=200 bytes=123
+Manifesto recebido: {
+  "version": "2.0",
+  "url": "https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/firmware_v2.bin"
+}
+
+Versão instalada=2.0 disponível=2.0
+INFO 3: versão instalada já é a mais recente; nenhuma gravação.
+Consulta OTA encerrada; medições continuam até parar a simulação.
+Nova sessão: real=336000ms previsto=336000ms; próxima em +48000ms
+Leitura 1: 17 cm; real=+1ms previsto=+0ms
+Leitura 2: 13 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 13 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 17 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 16 cm; real=+8000ms previsto=+8000ms
+Ordem original: 17 13 13 17 16
+Média da sessão: 15.2 cm
+Ordem crescente: 13 13 16 17 17
+Mediana (3º valor): 16 cm
+Estado: ALERTA; LED vermelho
+Ciclo 8 completo em t=344014ms; próximo início previsto=384000ms
+Nova sessão: real=384000ms previsto=384000ms; próxima em +48000ms
+Leitura 1: 12 cm; real=+1ms previsto=+0ms
+Leitura 2: 16 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 20 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 13 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 15 cm; real=+8000ms previsto=+8000ms
+Ordem original: 12 16 20 13 15
+Média da sessão: 15.2 cm
+Ordem crescente: 12 13 15 16 20
+Mediana (3º valor): 15 cm
+Estado: ALERTA; LED vermelho
+Ciclo 9 completo em t=392014ms; próximo início previsto=432000ms

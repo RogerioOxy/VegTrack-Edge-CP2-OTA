@@ -2,88 +2,105 @@
 
 Projeto de Edge Computing, Ciências da Computação, 4º semestre.
 
-- Rogério Deligi Ferreira Filho - RM561942
-- Maria Fernanda Garavelli Dantas - RM562686
+Autores:
 
-O VegTrack representa um nó de campo do Projeto Motiva. O ESP32 simula a altura da vegetação entre 10 e 20 cm. A atualização OTA permite acrescentar funções sem acessar fisicamente o equipamento.
+- Rogério Deligi Ferreira Filho, RM561942
+- Maria Fernanda Garavelli Dantas, RM562686
 
-Projeto Wokwi: https://wokwi.com/projects/475727719892918273
+O VegTrack simula um nó de campo do Projeto Motiva. O ESP32 coleta cinco estimativas de altura da vegetação entre 10 e 20 cm, calcula média e, no Firmware 2.0, também ordena uma cópia das leituras, calcula a mediana e aplica histerese aos estados NORMAL e ALERTA.
 
-Repositório: https://github.com/RogerioOxy/VegTrack-Edge-CP2-OTA
+## Publicação
 
-## Funcionamento
+Repositório remoto: [RogerioOxy/VegTrack-Edge-CP2-OTA](https://github.com/RogerioOxy/VegTrack-Edge-CP2-OTA)
 
-O Firmware 1.0 acende o LED azul. Cada sessão coleta cinco valores pseudoaleatórios, em 0, 2, 4, 6 e 8 segundos, armazena o vetor e mostra a média. O início seguinte é agendado somando 48 segundos ao início anterior. Assim, o intervalo não se torna 56 segundos. O Serial informa tempos reais e previstos, em milissegundos; pequenas diferenças de execução do simulador podem aparecer.
+O código, `version.json` e `firmware_v2.bin` foram verificados publicamente. O manifesto e o binário retornaram HTTP 200. O binário remoto tem 1.115.792 bytes e SHA-256 `eef3c48b0a3e4a09bb63457935b54c2a59ec0b9177c0b0512550647d5b688ffd`.
 
-Após os três primeiros ciclos completos, aproximadamente 104 segundos depois da primeira sessão, uma tarefa conecta o ESP32 à Wokwi-GUEST. Ela sincroniza o relógio, consulta o manifesto por HTTPS, compara os dois componentes numéricos da versão e baixa o binário quando há versão mais nova. O processo usa `Update.begin`, `Update.write` e `Update.end`; apenas uma imagem validada seleciona a partição do próximo boot. Em seguida, `ESP.restart()` reinicia o dispositivo. A tarefa de rede separada mantém a coleta ativa enquanto a rede espera.
+Link Wokwi: **publicação pendente de login**. O endereço `https://wokwi.com/projects/475727719892918273` é o template original e não deve ser apresentado como o projeto final público. A execução que comprovou o OTA foi feita no editor não salvo, com `sketch.ino`, `diagram.json` e `partitions.csv` corretos. O projeto completo precisa ser salvo após o login antes da entrega do PDF.
 
-O Firmware 2.0 mantém as leituras, a média e o período. Ordena uma cópia usando inserção e usa seu terceiro elemento como mediana. A ordem original permanece disponível. Mediana maior ou igual a 16 cm leva ao estado ALERTA e LED vermelho; mediana menor ou igual a 14 cm leva ao estado NORMAL e LED verde. Entre esses limites, o estado anterior permanece. Essa regra segue a tabela formal do enunciado, que é mais precisa que seu exemplo contraditório.
+Depois da entrega, os links e a estrutura devem permanecer públicos por pelo menos dez dias, conforme o enunciado. Esse período ainda não foi observado.
 
-A média considera todos os valores. A mediana é o valor central ordenado, menos afetado por um valor extremo. A histerese usa dois limites e o estado anterior para evitar alternâncias próximas do limite.
+## Arquitetura
 
-O FW2 começa com um diagnóstico identificado como tal, usando vetores fixos e as mesmas funções da coleta. Ele mostra o exemplo do enunciado, a manutenção em 15 cm nos dois sentidos, o retorno em 14 cm e a entrada em 16 cm. Os LEDs aparecem por 500 ms em cada caso. Ao fim, o estado NORMAL é restaurado, e só então começa a sessão zero. Esses vetores não são apresentados como leituras aleatórias.
+```text
+ESP32 DevKit no Wokwi
+        |
+        | Wokwi-GUEST + HTTPS
+        v
+version.json -> firmware_v2.bin -> partição OTA inativa -> reboot
+```
 
-## Circuito e arquitetura
+O manifesto possui exatamente dois campos:
 
-ESP32 DevKit -> rede Wokwi-GUEST -> manifesto version.json -> binário firmware_v2.bin -> partição OTA inativa -> reboot.
+```json
+{
+  "version": "2.0",
+  "url": "https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/firmware_v2.bin"
+}
+```
 
-Há três LEDs, cada um com resistor de 220 ohms: vermelho no GPIO25, verde no GPIO26 e azul no GPIO27; os cátodos se conectam ao GND. Não há sensor físico. `diagram.json` contém o circuito.
+O formato adotado neste projeto tem dois campos: `version` e `url`. O parser rejeita campos extras e aceita URLs HTTPS em `raw.githubusercontent.com/RogerioOxy/`, que é a conta usada pela dupla. Essa é uma limitação deliberada desta implementação, não uma exigência geral do enunciado. Para acrescentar campos ou trocar a hospedagem, é necessário ajustar a validação e recompilar.
 
-O HTTPS verifica o servidor usando a coleção completa de CAs incorporada ao core ESP32 3.3.11. O relógio é sincronizado por NTP para validar datas dos certificados. Uma falha de conexão, relógio ou certificado interrompe a consulta e é informada. Não há desativação da validação TLS.
+O Firmware 1.0 foi iniciado em `app0` e consultou o manifesto depois de três ciclos completos. O download remoto foi gravado em `app1`, validado e selecionado para o próximo boot. Após `ESP.restart()`, o Firmware 2.0 iniciou em `app1` com o mesmo MD5 do arquivo usado no download: `1547bb7841adda858261ab0b438749e2`.
 
-## Arquivos e compilação
+## Firmware 1.0
 
-- `firmware_v1.ino` e `firmware_v2.ino`: fontes completas, independentes de cabeçalhos do projeto, também presentes nas pastas Arduino `fw1` e `fw2`.
-- `firmware_v1.bin`: imagem de aplicação inicial.
-- `firmware_v2.bin`: imagem de aplicação usada no download OTA.
-- `version.json`: manifesto com `version` e `url`.
-- `partitions.csv`: tabela com otadata e dois slots OTA, necessária no projeto Wokwi online; a tabela padrão online observada tinha factory e não permitiu iniciar OTA.
-- `build.ps1`: compila ambas com o core instalado, copia os binários e mostra tamanho e SHA-256.
-- `build1/fw1.ino.merged.bin`: imagem inicial completa com bootloader e tabela de partições, produzida pelo build local. Não é o arquivo de OTA.
-- `wokwi.toml`: configuração para a extensão Wokwi local após a compilação.
-- `tests`: teste C++ das funções extraídas diretamente do firmware.
+- LED azul para identificar a versão.
+- Cinco leituras pseudoaleatórias entre 10 e 20 cm.
+- Leituras em 0, 2, 4, 6 e 8 segundos.
+- Vetor original preservado e média exibida.
+- Nova sessão iniciada a cada 48 segundos contados do início da sessão anterior.
+- Após três ciclos, conexão ao `Wokwi-GUEST`, consulta HTTPS do manifesto e comparação numérica das versões.
 
-Ambiente local: Arduino ESP32 3.3.11, FQBN `esp32:esp32:esp32`, tabela `default`. Os dois slots OTA têm 0x140000 bytes (1.310.720 bytes) cada, além de `otadata`. O boot imprime a versão do core, partição, tamanho e MD5 da imagem em execução. O SHA-256 dos arquivos distribuídos está em `ARTIFACTS.json`.
+## Firmware 2.0
 
-Em PowerShell, execute `./build.ps1`. O script requer Python e pressupõe o Arduino CLI instalado no caminho indicado em seu início. Em outro computador, ajuste apenas esse caminho e instale o mesmo core antes de compilar. Para compilar manualmente: `arduino-cli compile --fqbn esp32:esp32:esp32 --build-property "build.partitions=default" --output-dir build1 fw1`; repita com build2 e fw2.
+- Mantém as leituras, a média e a temporização do Firmware 1.0.
+- Ordena uma cópia do vetor e exibe a ordem original e a crescente.
+- Usa o terceiro elemento ordenado como mediana.
+- Mediana maior ou igual a 16 cm: ALERTA e LED vermelho.
+- Mediana menor ou igual a 14 cm: NORMAL e LED verde.
+- Entre os dois limites: mantém o estado anterior.
 
-## Execução e observação
+O diagnóstico inicial do Firmware 2.0 usa vetores fixos identificados como diagnóstico. Ele comprova média, ordenação, mediana, limites 14 e 16 e manutenção do estado em 15, sem apresentar esses vetores como leituras de campo.
 
-1. Verifique se `version.json` e `firmware_v2.bin` estão públicos no repositório. O manifesto aponta para o arquivo `.bin` de aplicação, não para a imagem merged.
-2. Inicie o projeto Wokwi com o Firmware 1.0 e abra o Serial Monitor a 115200 baud. Para uma imagem compilada localmente, use F1 no editor e a opção de carregar firmware; selecione a imagem inicial completa `build1/fw1.ino.merged.bin` para manter a tabela de partições do build.
-3. Observe o azul, cinco leituras e média. Compare os inícios previstos 0, 48000 e 96000 ms. A terceira quinta leitura é prevista em 104000 ms.
-4. Registre a versão do core, consulta, HTTP 200, versão 2.0, URL, bytes gravados e mensagem de reinício. Depois do reboot, registre FW2, partição diferente, diagnóstico e uma sessão aleatória completa com original, crescente, média, mediana e estado.
-5. Preserve o log real. Compilar, ter um link ou mostrar mensagens preparadas não comprova atualização remota.
+## Partições, compilação e execução
 
-## Diagnóstico das cinco situações
+`partitions.csv` contém `otadata`, `ota_0` e `ota_1`, com 0x140000 bytes por slot. O Firmware 2.0 usado no OTA tem 1.115.792 bytes e cabe no slot.
 
-Após três ciclos completos e quando a tarefa anterior terminar, envie um comando pelo Serial Monitor. Aguarde a mensagem de encerramento antes do próximo comando. A coleta continua; esses comandos são identificados como diagnóstico.
+O build local usa Arduino ESP32 3.3.11, FQBN `esp32:esp32:esp32` e a tabela `default` equivalente. O compilador online do Wokwi gerou o primeiro firmware com core 3.3.7; o binário recebido por OTA foi compilado localmente com core 3.3.11. O log registra as duas versões e a atualização entre elas funcionou. Para repetir as compilações locais, use o core 3.3.11.
 
-| Situação | Comando/procedimento | Evidência esperada | Estado da verificação Wokwi |
-|---|---|---|---|
-| Sem Wi-Fi | `1` desconecta a rede e verifica o estado real | ERRO 1 | Não verificado nesta etapa |
-| Manifesto inacessível | `2` solicita caminho inexistente | HTTP 404 e ERRO 2 | Não verificado nesta etapa |
-| Versão já atual | `m` executando FW2 com manifesto 2.0 | INFO 3, sem gravação | Não verificado nesta etapa |
-| Binário indisponível | `4` solicita binário inexistente | HTTP 404 e ERRO 4 | Não verificado nesta etapa |
-| Falha na atualização | `5` baixa o JSON como imagem inválida | ERRO 5 da biblioteca Update, sem reboot | Não verificado nesta etapa |
+Para compilar localmente:
 
-`m` repete a consulta normal, reconectando a rede se necessário. `p` mostra a partição e a identidade da imagem a qualquer momento. O comando 5 exercita uma rejeição real da biblioteca; não é uma atualização válida nem prova de OTA concluída.
+```powershell
+./build.ps1
+```
 
-## Testes obrigatórios e evidência disponível
+O script pressupõe Arduino CLI e Python 3 instalados. Em outro computador, ajuste a variável `$cli` no início de `build.ps1` para o caminho do seu Arduino CLI.
 
-O teste local C++ requer Python e Visual Studio 2022 com MSVC. Ele usa MSVC e extrai as funções do firmware antes de cada execução. Executa todos os 161.051 vetores possíveis, comparando a ordenação por inserção a `std::sort`. Saída observada: `Actual extracted firmware functions: 161051 vectors, 966335 checks, 0 failures`. Também verifica versões inválidas, comparação numérica e limites. Rode `./run-host-tests.cmd` a partir da pasta `tests`. Este teste não executa Wi-Fi, cJSON, Update, LEDs nem o simulador.
+No navegador, abra o projeto Wokwi completo com o Firmware 1.0 em `sketch.ino`, o circuito em `diagram.json` e a tabela em `partitions.csv`. Clique no botão verde de iniciar a simulação. O próprio Wokwi compila o fonte; não é preciso fazer o build local para usar esse caminho. Abra o Serial Monitor a 115200 baud e aguarde os três ciclos completos, a consulta, a gravação e o reboot.
 
-| # | Teste exigido | Evidência local | Situação Wokwi |
-|---|---|---|---|
-| 1 | FW1: cinco leituras, média, LED azul | Código compilado e média verificada localmente | Serial observado: 5 valores e média correta; aceitação visual separada |
-| 2 | Sessões a cada 48 s, não 56 s | Agendamento por referência anterior | Observado: inícios em 0, 48000, 96000 e 144000 ms |
-| 3 | Encontrar FW2 após três ciclos | Fluxo HTTPS e comparação implementados | Observado: ciclo 3 em 104001 ms; manifesto 200 e versão 2.0 |
-| 4 | OTA, reboot e execução de FW2 | APIs reais de gravação e prova de partição implementadas | Primeiro teste baixou 1115792 bytes; bloqueado antes da gravação pela tabela online inicial. Reteste necessário com partitions.csv |
-| 5 | FW2: média, ordenação, mediana | Todos os vetores inteiros possíveis passaram no teste local | Não verificado nesta etapa |
-| 6 | Mediana >= 16: ALERTA, vermelho | Função e fronteira 16 passaram; diagnóstico usa LED real | Não verificado nesta etapa |
-| 7 | 14 < mediana < 16: manter estado | 15 nos dois estados passou no teste local | Não verificado nesta etapa |
-| 8 | Mediana <= 14: NORMAL, verde | Retorno ALERTA -> NORMAL em 14 passou localmente | Não verificado nesta etapa |
+Como alternativa após o build local, `build1/fw1.ino.merged.bin` inclui bootloader e tabela de partições para carregar uma imagem inicial completa. O arquivo OTA é somente `firmware_v2.bin`, que contém a aplicação.
 
-A primeira execução online usou core 3.3.7, diferente do core local 3.3.11, e partição factory. Ela confirmou rede, TLS, manifesto e download, mas não iniciou a gravação. O reteste deve usar a tabela OTA em partitions.csv.
+## Evidências
 
-A validação final depende do log da execução Wokwi. Os tempos de rede, o boot da partição gravada e a disponibilidade pública ainda precisam ser observados no ambiente final. Mantenha o projeto, o manifesto e o binário publicados por pelo menos dez dias após a entrega. A entrega acadêmica é o PDF indicado no enunciado.
+- [Log completo do OTA e do reboot](docs/evidencias/wokwi-ota-success.txt)
+- [Log dos cinco cenários de erro e recuperação](docs/evidencias/wokwi-erros-e-recuperacao.txt)
+- [LED azul durante a execução do Firmware 1.0](docs/evidencias/wokwi-fw1-primeiro-teste.png)
+- [Firmware 2.0 em ALERTA](docs/evidencias/wokwi-fw2-alerta.png)
+- [Firmware 2.0 em NORMAL](docs/evidencias/wokwi-fw2-normal.png)
+- [Matriz dos testes obrigatórios](docs/TESTES.md)
+
+Os testes locais das funções reais extraídas dos firmwares executaram 161.051 vetores, 966.335 verificações e 0 falhas. Essa evidência é distinta da execução no Wokwi: ela não substitui a comprovação de Wi-Fi, HTTPS, `Update`, reboot, LEDs ou partições.
+
+## Diagnóstico
+
+Após a consulta inicial terminar, os comandos do Serial Monitor exercitam os cinco cenários pedidos no enunciado:
+
+| Comando | Cenário | Resultado observado |
+|---|---|---|
+| `1` | Sem Wi-Fi | `ERRO 1`, sem atualização |
+| `2` | Manifesto inacessível | HTTP 404 e `ERRO 2` |
+| `m` | Versão já atual | HTTP 200, `INFO 3`, nenhuma gravação |
+| `4` | Binário indisponível | HTTP 404 e `ERRO 4` |
+| `5` | Imagem inválida | `ERRO 5`, código 13, `Decryption error`, `app1` preservada |
+
+O comando `5` não é um OTA válido. Ele verifica que o caminho de erro rejeita o conteúdo e que o firmware em execução permanece recuperável.

@@ -1,0 +1,160 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1156
+load:0x40078000,len:11456
+ho 0 tail 12 room 4
+load:0x40080400,len:2972
+entry 0x400805dc
+
+========================================
+MONITORAMENTO DE VEGETAÇÃO - FW 1.0
+========================================
+CORE Arduino ESP32: 3.3.7
+PARTIÇÃO atual: app0 offset=0x10000 tamanho=0x140000
+IMAGEM FW=1.0 bytes=1124480 MD5=b78d9183207e43d5568026d265b0f507 compilada=Sep 21 2026 00:11:11
+Comandos após 3 ciclos: m=consultar; 1=sem Wi-Fi; 2=manifesto 404;
+4=binário 404; 5=imagem inválida. p=prova da partição.
+LED azul: Firmware 1.0.
+Nova sessão: real=0ms previsto=0ms; próxima em +48000ms
+Leitura 1: 15 cm; real=+11ms previsto=+0ms
+Leitura 2: 13 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 17 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 15 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 10 cm; real=+8000ms previsto=+8000ms
+Ordem original: 15 13 17 15 10
+Média da sessão: 14.0 cm
+Ciclo 1 completo em t=8002ms; próximo início previsto=48000ms
+Nova sessão: real=48000ms previsto=48000ms; próxima em +48000ms
+Leitura 1: 17 cm; real=+0ms previsto=+0ms
+Leitura 2: 16 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 20 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 20 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 16 cm; real=+8000ms previsto=+8000ms
+Ordem original: 17 16 20 20 16
+Média da sessão: 17.8 cm
+Ciclo 2 completo em t=56001ms; próximo início previsto=96000ms
+Nova sessão: real=96000ms previsto=96000ms; próxima em +48000ms
+Leitura 1: 11 cm; real=+0ms previsto=+0ms
+Leitura 2: 17 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 10 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 10 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 20 cm; real=+8000ms previsto=+8000ms
+Ordem original: 11 17 10 10 20
+Média da sessão: 13.6 cm
+Ciclo 3 completo em t=104001ms; próximo início previsto=144000ms
+Três ciclos completos. Iniciando tarefa de consulta OTA.
+Wi-Fi: conectando à rede Wokwi-GUEST...
+Wi-Fi conectado; IP=10.10.0.2
+TLS: relógio UTC=1789949933; coleção de CAs=68983 bytes
+Consulta: https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/version.json
+Manifesto HTTP=200 bytes=123
+Manifesto recebido: {
+  "version": "2.0",
+  "url": "https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/firmware_v2.bin"
+}
+
+Versão instalada=1.0 disponível=2.0
+OTA: atualização disponível após três ciclos completos.
+Download remoto: https://raw.githubusercontent.com/RogerioOxy/VegTrack-Edge-CP2-OTA/main/firmware_v2.bin
+Firmware HTTP=200 bytes=1115792
+OTA: gravando partição=app1 offset=0x150000
+OTA bytes=65536/1115792
+OTA bytes=131692/1115792
+OTA bytes=197228/1115792
+OTA bytes=262764/1115792
+OTA bytes=328300/1115792
+OTA bytes=393836/1115792
+Nova sessão: real=144000ms previsto=144000ms; próxima em +48000ms
+Leitura 1: 15 cm; real=+0ms previsto=+0ms
+Leitura 2: 13 cm; real=+2000ms previsto=+2000ms
+OTA bytes=459372/1115792
+Leitura 3: 16 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 14 cm; real=+6000ms previsto=+6000ms
+OTA bytes=524908/1115792
+Leitura 5: 13 cm; real=+8003ms previsto=+8000ms
+Ordem original: 15 13 16 14 13
+Média da sessão: 14.2 cm
+Ciclo 4 completo em t=152003ms; próximo início previsto=192000ms
+OTA bytes=590444/1115792
+OTA bytes=655980/1115792
+OTA bytes=721516/1115792
+OTA bytes=787052/1115792
+OTA bytes=852588/1115792
+OTA bytes=918124/1115792
+OTA bytes=983660/1115792
+OTA bytes=1049196/1115792
+OTA bytes=1114732/1115792
+OTA bytes=1115792/1115792
+OTA: imagem validada, partição de boot selecionada. Reiniciando...
+ets Jul 29 2019 12:21:46
+
+rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1156
+load:0x40078000,len:11456
+ho 0 tail 12 room 4
+load:0x40080400,len:2972
+entry 0x400805dc
+
+========================================
+MONITORAMENTO DE VEGETAÇÃO - FW 2.0
+========================================
+CORE Arduino ESP32: 3.3.11
+PARTIÇÃO atual: app1 offset=0x150000 tamanho=0x140000
+IMAGEM FW=2.0 bytes=1115792 MD5=1547bb7841adda858261ab0b438749e2 compilada=Sep 20 2026 21:09:08
+Comandos após 3 ciclos: m=consultar; 1=sem Wi-Fi; 2=manifesto 404;
+4=binário 404; 5=imagem inválida. p=prova da partição.
+DIAGNÓSTICO: vetores fixos, NÃO são leituras de campo.
+Usa as mesmas funções de média, ordenação, mediana, histerese e LED.
+TESTE 1: mediana=15 estado=NORMAL resultado=PASS
+Original diagnóstico: 18 12 15 14 20
+Ordenado diagnóstico: 12 14 15 18 20
+Média diagnóstico: 15.8 cm
+Estado: NORMAL; LED verde
+TESTE 2: mediana=17 estado=ALERTA resultado=PASS
+Original diagnóstico: 16 12 18 17 20
+Ordenado diagnóstico: 12 16 17 18 20
+Média diagnóstico: 16.6 cm
+Estado: ALERTA; LED vermelho
+TESTE 3: mediana=15 estado=ALERTA resultado=PASS
+Original diagnóstico: 14 16 15 15 14
+Ordenado diagnóstico: 14 14 15 15 16
+Média diagnóstico: 14.8 cm
+Estado: ALERTA; LED vermelho
+TESTE 4: mediana=14 estado=NORMAL resultado=PASS
+Original diagnóstico: 14 14 14 14 14
+Ordenado diagnóstico: 14 14 14 14 14
+Média diagnóstico: 14.0 cm
+Estado: NORMAL; LED verde
+TESTE 5: mediana=15 estado=NORMAL resultado=PASS
+Original diagnóstico: 15 15 15 15 15
+Ordenado diagnóstico: 15 15 15 15 15
+Média diagnóstico: 15.0 cm
+Estado: NORMAL; LED verde
+TESTE 6: mediana=12 estado=NORMAL resultado=PASS
+Original diagnóstico: 10 14 12 11 13
+Ordenado diagnóstico: 10 11 12 13 14
+Média diagnóstico: 12.0 cm
+Estado: NORMAL; LED verde
+TESTE limite 16: PASS
+Estado: ALERTA; LED vermelho
+Estado: NORMAL; LED verde
+FIM DIAGNÓSTICO. Início das leituras de campo simuladas.
+Nova sessão: real=0ms previsto=0ms; próxima em +48000ms
+Leitura 1: 19 cm; real=+12ms previsto=+0ms
+Leitura 2: 20 cm; real=+2000ms previsto=+2000ms
+Leitura 3: 17 cm; real=+4000ms previsto=+4000ms
+Leitura 4: 12 cm; real=+6000ms previsto=+6000ms
+Leitura 5: 16 cm; real=+8000ms previsto=+8000ms
+Ordem original: 19 20 17 12 16
+Média da sessão: 16.8 cm
+Ordem crescente: 12 16 17 19 20
+Mediana (3º valor): 17 cm
+Estado: ALERTA; LED vermelho
+Ciclo 1 completo em t=8014ms; próximo início previsto=48000ms
